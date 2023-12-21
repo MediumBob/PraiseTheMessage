@@ -1,0 +1,10 @@
+# developer folder/files (notes to myself, version info, planned features, etc.)
+
+dev/
+*.txt
+
+# vscode settings (auto-generates when I run live server during development)
+.vscode
+
+# various resources for jest testing
+node_modules/

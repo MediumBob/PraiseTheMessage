@@ -1,11 +1,31 @@
 
-let terms = {}; // This will hold your JSON data
+// define sone variables for later
+let terms = {}; // this will hold the JSON data
+const termsURL = 'https://raw.githubusercontent.com/MediumBob/PraiseTheMessage/main/assets/json/terms.json'; // URL for json data
 
-// Fetch the JSON data from the terms.json file
-fetch('../assets/json/terms.json')
-   .then(response => response.json())
+/**
+ * 
+ * @param {*} path 
+ * @returns 
+ */
+async function getTerms(path) {
+    const response = await fetch(path);
+    if (!response.ok) {
+        throw new Error(`HTTP error - status: ${response.status}`);
+    }
+    return await response.json();
+ }
+
+ // fetch terms.json from the remote repository
+ getTerms(termsURL)
    .then(data => {
-       terms = data;
+        // load the terms.json data into a javascript variable
+        terms = data;
+        // add lists of the terms under the search bar
+        populateHTML(terms);
+   })
+   .catch(error => {
+        console.error('Error:', error);
    });
 
 const resultsBox = document.querySelector(".result-box");
@@ -44,17 +64,14 @@ inputBox.addEventListener('keydown', function(e) {
 /**
  * 
  */
-inputBox.onkeyup = function(){
-    if(event.keyCode === 13){
-        // enter key pressed - we have a separate function for enter
+inputBox.onkeyup = function(event){
+    if(event.key === 'Enter'){
+        // enter key pressed, so break out - we have a separate function for the enter key
         return;
     }
     let result = [];
     let input = inputBox.value;
     if(input.length){
-        // result = terms.filter( (keyword) => {
-        //     return keyword.toLowerCase().startsWith(input.toLowerCase());
-        // });
         // Get values that start with the input string
         let values = Object.values(terms).flatMap(value => value).filter(value => value.toLowerCase().startsWith(input.toLowerCase()));
         result = [...values];
@@ -152,12 +169,45 @@ function search(searchTerm) {
     }
   }
 
-
 function highlightDiv(result) {
     const div = document.querySelector(`.terms ${result}`);
     if (div) {
         div.classList.add('highlight');
     }
   }
-  // FIXME freaking lord is listed twice - once in enemies and once in people. when you click either entry in the search bar, it always shows enemies. one should show people
-  // skill is both an action and a thing
+
+  function populateHTML(terms) {
+    // Get the container where the divs will be added
+    const container = document.querySelector('.grid');
+ 
+    // Iterate over the keys and values in the terms object
+    for (let key in terms) {
+        // Create a new div element with the class 'terms' and the key as its class name
+        let div = document.createElement('div');
+        div.className = 'terms ' + key.toLowerCase();
+ 
+        // Create an h2 element with the key as its text content
+        let h2 = document.createElement('h2');
+        h2.textContent = key;
+ 
+        // Create an ul element
+        let ul = document.createElement('ul');
+ 
+        // Iterate over the values in the array
+        for (let value of terms[key]) {
+            // Create an li element with the value as its text content
+            let li = document.createElement('li');
+            li.textContent = value;
+ 
+            // Append the li element to the ul element
+            ul.appendChild(li);
+        }
+ 
+        // Append the h2 and ul elements to the div element
+        div.appendChild(h2);
+        div.appendChild(ul);
+ 
+        // Append the div element to the container
+        container.appendChild(div);
+    }
+ }
