@@ -278,8 +278,9 @@
         "Rump",
         "Tail",
         "Core",
-        "Fingers",
-        "Affinities",
+        "Fingers"
+    ],
+    "Affinities": [
         "Physical",
         "Standard",
         "Striking",

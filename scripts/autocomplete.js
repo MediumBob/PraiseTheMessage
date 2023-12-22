@@ -155,6 +155,8 @@ function search(searchTerm) {
         case 'body parts':
             resultBox.style.left = '66%';
             break;
+        case 'affinities':
+            resultBox.style.left = '70%';
         case 'concepts':
             resultBox.style.left = '73%';
             break;

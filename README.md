@@ -1,10 +1,12 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0e64092b-b947-49a5-add2-15090438ad58/deploy-status)](https://app.netlify.com/sites/praisethemessage/deploys)
+
 # PraiseTheMessage
 Quickly locate message terms within the Elden Ring message library.
 
 [demo]
 
 # How To Use This Tool
-Navigate to the [following link]() and enter your desired term into the provided search bar. The page should highlight and list the corresponding category the term will be found under. 
+Navigate to the [following link](https://praisethemessage.netlify.app/) and enter your desired term into the provided search bar. The page should highlight and list the corresponding category the term will be found under. 
 
 Alternatively, you can use your browsers search feature (ctrl+F) and find it that way. 
 
@@ -13,8 +15,8 @@ Please note that although this code is my own, the idea came from a [Reddit post
 
 # Alternatives
 If this site ever goes down, you can try the following alternatives:
-1. Multiple blog posts like [this one from Gameplay](https://gameplay.tips/guides/elden-ring-list-of-message-words-phrases.html) and [this one from Steamlists](https://steamlists.com/elden-ring-list-of-messages-words-phrases/) list all of the message terms - simply use your browsers search feature (ctrl+F) to find the word you're looking for, and scroll up for its category.
-2. [Fextralife](https://eldenring.wiki.fextralife.com/Messages) has a similar page because of course they do.
+1. Multiple blog posts like [this one from Steamlists](https://steamlists.com/elden-ring-list-of-messages-words-phrases/) list all of the message terms - simply use your browsers search feature (ctrl+F) to find the word you're looking for, and scroll up for its category.
+2. Fextralife's [Elden Ring Wiki](https://eldenring.wiki.fextralife.com/Messages) has a similar page because of course they do.
 3. [Tryfinger.com](https://www.tryfinger.com/) might be back online! Give it a shot!
 
 I expect there are other similar resources out there that are not listed here.
