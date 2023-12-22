@@ -42,10 +42,10 @@ body{
     display: grid;
     gap: 5px 5px;
     grid-template-areas: 
-    "header header header header header header header header header header header header"
-    "search-bar search-bar search-bar search-bar search-bar search-bar search-bar search-bar search-bar search-bar search-bar search-bar"
-    "enemies people things tactics actions situations places directions bodyparts concepts phrases conjunctions"
-    "footer footer footer footer footer footer footer footer footer footer footer footer";
+    "header header header header header header header header header header header header header"
+    "search-bar search-bar search-bar search-bar search-bar search-bar search-bar search-bar search-bar search-bar search-bar search-bar search-bar"
+    "enemies people things tactics actions situations places directions bodyparts affinities concepts phrases conjunctions"
+    "footer footer footer footer footer footer footer footer footer footer footer footer footer";
     }
 
 .header{
@@ -152,6 +152,7 @@ button .fa-solid{
 .places { grid-area: places; }
 .directions { grid-area: directions; }
 .bodyparts { grid-area: bodyparts; }
+.affinities { grid-area: affinities; }
 .concepts { grid-area: concepts; }
 .phrases { grid-area: phrases; }
 .conjunctions { grid-area: conjunctions; }
