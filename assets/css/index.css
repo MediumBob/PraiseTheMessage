@@ -24,6 +24,7 @@ body{
     background-size: cover;
     background-color: #262a2f;
     color: #fff;
+    text-align: center;
 
     min-height: 400px;
     margin-bottom: 20px;
@@ -31,7 +32,7 @@ body{
 
   /* dark region in front of the background image */
   .primary-container {
-    background-color: rgba( 0, 0, 0, 0.55); 
+    background-color: rgba( 0, 0, 0, 0.60); 
     margin: 0%;
     padding: 1%;
     gap: 5px;
@@ -56,6 +57,12 @@ body{
     justify-content: center;
     align-items: center;
 }
+.header h1{
+    text-decoration: underline;
+    text-decoration-color: rgb(208, 171, 109);
+    text-decoration-thickness: 3px;
+}
+
 
 .search-bar{
     grid-area: search-bar;
@@ -63,9 +70,11 @@ body{
 .search-box{
     color: #333;
     width: 600px;
-    background: #fff;
+    background: #222222;
     margin: 20px auto 20px;
+    border: 2px solid;
     border-radius: 5px;
+    border-color: rgb(208, 171, 109);
 
 }
 .row{
@@ -80,27 +89,26 @@ input{
     border: 0;
     outline: 0;
     font-size: 18px;
-    color: #333;
+    color: #fff;
 }
 button{
     background: transparent;
     border: 0;
     outline: 0;
-
 }
+
 button .fa-solid{
     width: 25px;
     color: #555;
     font-size: 22px;
     cursor: pointer;
 }
-::placeholder{
 
-}
 .result-box ul{
-    border-top: 1px solid #999;
+    border-top: 1px solid #fff;
     padding: 15px 10px;
 }
+
 .result-box ul li{
     list-style: none;
     border-radius: 3px;
@@ -108,20 +116,25 @@ button .fa-solid{
     cursor: pointer;
 }
 .result-box ul li:hover{
-    background: #e9f3ff;
+    background: #4c4c4c;
 }
 
 .result-box{
-    color: #333;
+    color: #fff;
     max-height: 300px;
     overflow-y: scroll;
+    text-align: left;
+
 }
 .res-box{
     position: relative;
     font-size: 2em;
     display: inline-block;
-    background-color: rgb(255, 242, 0, 0.4);
-
+    /* border: 3px solid;
+    border-color: rgb(208, 171, 109);
+    border-radius: 15px; */
+    margin-bottom: 15px;
+    padding: 8px;
 }
 
 .terms{
@@ -134,8 +147,13 @@ button .fa-solid{
     text-overflow: wrap;
     border-style: solid;
     border-width: 1px;
-    border-color: white;
+    border-color: rgb(208, 171, 109);
     border-radius: 15px;
+}
+
+.terms h2{
+    text-decoration: underline;
+    text-decoration-color: rgb(208, 171, 109);
 }
 .terms li{
     display: flex;
@@ -165,8 +183,6 @@ button .fa-solid{
     justify-content: center;
     align-items: center;
     gap: 10px;
-
-
     position: fixed;
     bottom: 0;
     left: 0;

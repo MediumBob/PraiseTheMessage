@@ -2,6 +2,9 @@
 // define sone variables for later
 let terms = {}; // this will hold the JSON data
 const termsURL = 'https://raw.githubusercontent.com/MediumBob/PraiseTheMessage/main/assets/json/terms.json'; // URL for json data
+const resultsBox = document.querySelector(".result-box");
+const inputBox = document.getElementById("input-box");
+const searchIcon = document.querySelector(".fa-solid.fa-magnifying-glass");
 
 /**
  * 
@@ -28,12 +31,9 @@ async function getTerms(path) {
         console.error('Error:', error);
    });
 
-const resultsBox = document.querySelector(".result-box");
-const inputBox = document.getElementById("input-box");
 
 
 // user presses the search icon
-const searchIcon = document.querySelector(".fa-solid.fa-magnifying-glass");
 searchIcon.addEventListener('click', function() {
     const firstResult = document.querySelector(".result-box li:first-child");
     if (firstResult) {
@@ -61,6 +61,67 @@ inputBox.addEventListener('keydown', function(e) {
     }
 });
 
+// SECOND ATTEMPT
+// inputBox.addEventListener('keydown', function(e) {
+//     if (e.key === 'Enter') {
+//         e.preventDefault();
+//         if (selectedTerm) {
+//             // If a term is selected, search for it
+//             const keys = search(selectedTerm);
+//             if (keys) {
+//                 showResult(keys);
+//                 console.log(`The corresponding keys are: ${keys}`);
+//             } else {
+//                 console.log(`No corresponding keys found for: ${selectedTerm}`);
+//             }
+//         } else {
+//             // If no term is selected, search for the first term in the list
+//             const firstResult = document.querySelector(".result-box li:first-child");
+//             if (firstResult) {
+//                 selectInput(firstResult);
+//                 highlightDiv(firstResult.textContent);
+//             }
+//         }
+//         resultsBox.innerHTML = '';
+//     }
+//  });
+//THIRTD ATTEMPT
+// Variable to keep track of the currently selected term
+let selectedTermIndex = -1;
+
+// Modify the keydown event handler
+// inputBox.addEventListener('keydown', function(e) {
+//   switch(e.key) {
+//       case 'ArrowUp':
+//           // Move to the previous term
+//           if (selectedTermIndex > 0) {
+//               selectedTermIndex--;
+//               selectInput(document.querySelectorAll(".result-box li")[selectedTermIndex]);
+//           }
+//           break;
+//       case 'ArrowDown':
+//           // Move to the next term
+//           if (selectedTermIndex < document.querySelectorAll(".result-box li").length - 1) {
+//               selectedTermIndex++;
+//               selectInput(document.querySelectorAll(".result-box li")[selectedTermIndex]);
+//           }
+//           break;
+//       case 'Enter':
+//           e.preventDefault();
+//           if (selectedTermIndex >= 0) {
+//               // If a term is selected, search for it
+//               const keys = search(selectedTerm);
+//               if (keys) {
+//                  showResult(keys);
+//                  console.log(`The corresponding keys are: ${keys}`);
+//               } else {
+//                  console.log(`No corresponding keys found for: ${selectedTerm}`);
+//               }
+//           }
+//           break;
+//   }
+// });
+
 /**
  * 
  */
@@ -78,104 +139,119 @@ inputBox.onkeyup = function(event){
         console.log(result);
     }
     display(result);
-    if(!result.length){
-        resultsBox.innerHTML = '';
-    }
+    // if(!result.length){
+    //     resultsBox.innerHTML = '';
+    // }
 }
 
 /**
  * 
  * @param {*} result 
  */
+// function display(result){
+//     const content = result.map((list)=>{
+//         return "<li onclick=selectInput(this)>" + list.toLowerCase() + "</li>";
+//     });
+//     resultsBox.innerHTML = "<ul>" + content.join('') + "</ul>";
+// }
 function display(result){
-    const content = result.map((list)=>{
+    // Remove duplicates
+    const uniqueResult = Array.from(new Set(result));
+    const content = uniqueResult.map((list)=>{
         return "<li onclick=selectInput(this)>" + list.toLowerCase() + "</li>";
     });
     resultsBox.innerHTML = "<ul>" + content.join('') + "</ul>";
-}
+ }
+
+
+ let selectedTerm = null;
 
 /**
  * 
  * @param {*} list 
  */
+// function selectInput(list){
+//     let searchTerm = list.innerHTML;
+//     let key = search(searchTerm);
+//     if (key) {
+//         showResult(key);
+//         console.log(`The corresponding key is: ${key}`);
+//     } else {
+//         console.log(`No corresponding key found for: ${searchTerm}`);
+//     }
+//     inputBox.value = searchTerm;
+//     resultsBox.innerHTML = '';
+// }
 function selectInput(list){
     let searchTerm = list.innerHTML;
-    let key = search(searchTerm);
-    if (key) {
-        showResult(key);
-        console.log(`The corresponding key is: ${key}`);
+    let keys = search(searchTerm);
+    if (keys) {
+        showResult(keys);
+        console.log(`The corresponding keys are: ${keys}`);
     } else {
-        console.log(`No corresponding key found for: ${searchTerm}`);
+        console.log(`No corresponding keys found for: ${searchTerm}`);
     }
     inputBox.value = searchTerm;
     resultsBox.innerHTML = '';
-}
-
-function search(searchTerm) {
-    for (let [key, value] of Object.entries(terms)) {
-        let found = value.find(item => item.toLowerCase() === searchTerm.toLowerCase());
-        if (found) {
-            return key;
-        }
-    }
-    return null;
+    selectedTerm = searchTerm; // Update the selected term
  }
 
- function showResult(key) {
-    const resultBox = document.querySelector(".res-box");
-    resultBox.innerHTML = key;
-    // FIXME the following solution for positioning the response is probably not
-    // very responsive and most likely breaks on other devices. Find another way!
-    // In short, try research.
-    switch(resultBox.innerHTML.toLowerCase()){
-        case 'enemies':
-            resultBox.style.left = '1%';
-            break;
-        case 'people':
-            resultBox.style.left = '10%';
-            break;
-        case 'things':
-            resultBox.style.left = '19%';
-            break;
-        case 'battle tactics':
-            resultBox.style.left = '25%';
-            break;
-        case 'actions':
-            resultBox.style.left = '36%';
-            break;
-        case 'situations':
-            resultBox.style.left = '42%';
-            break;
-        case 'places':
-            resultBox.style.left = '52%';
-            break;
-        case 'directions':
-            resultBox.style.left = '58%';
-            break;
-        case 'body parts':
-            resultBox.style.left = '66%';
-            break;
-        case 'affinities':
-            resultBox.style.left = '70%';
-        case 'concepts':
-            resultBox.style.left = '73%';
-            break;
-        case 'phrases':
-            resultBox.style.left = '83%';
-            break;
-        case 'conjunctions':
-            resultBox.style.left = '88%';
-            break;
-        default:
-            break;
+// function search(searchTerm) {
+//     for (let [key, value] of Object.entries(terms)) {
+//         let found = value.find(item => item.toLowerCase() === searchTerm.toLowerCase());
+//         if (found) {
+//             return key;
+//         }
+//     }
+//     return null;
+//  }
+function search(searchTerm) {
+    let keys = [];
+    for (let [key, value] of Object.entries(terms)) {
+        let found = value.some(item => item.toLowerCase() === searchTerm.toLowerCase());
+        if (found) {
+            keys.push(key);
+        }
     }
-  }
+    return keys.length ? keys : null;
+ }
 
-function highlightDiv(result) {
-    const div = document.querySelector(`.terms ${result}`);
-    if (div) {
-        div.classList.add('highlight');
+ //FIXME this should show all instances of the word and highlight them accordingly, instead of just the first one
+//  function showResult(key) {
+//     const resultBox = document.querySelector(".res-box");
+//     resultBox.innerHTML = key;
+//   }
+  function showResult(keys) {
+    const resultBox = document.querySelector(".res-box");
+    resultBox.innerHTML = keys.join(', ');
+       // Add CSS properties
+    resultBox.style.border = "3px solid";
+    resultBox.style.borderColor = "rgb(208, 171, 109)";
+    resultBox.style.borderRadius = "15px";
+ }
+
+ function highlightDiv(result) {
+    // Check if the result is a valid string
+    if (typeof result !== 'string') {
+        console.log('Invalid result:', result);
+        return;
     }
+  
+    // Use a valid CSS selector
+    const divs = document.querySelectorAll('.terms li');
+  
+    // Check if any divs were selected
+    if (!divs.length) {
+        console.log('No divs selected');
+        return;
+    }
+  
+    // Highlight divs that contain the result
+    divs.forEach(div => {
+        if (div.textContent.includes(result)) {
+            div.classList.add('highlight');
+        }
+    });
   }
 
   function populateHTML(terms) {
@@ -213,3 +289,30 @@ function highlightDiv(result) {
         container.appendChild(div);
     }
  }
+
+
+//  ------------
+// Get the search input field
+const inputField = document.querySelector("#input-box");
+
+// Add an event listener for the focus event
+inputField.addEventListener("focus", () => {
+ // If the input field is empty
+ if (!inputField.value) {
+  // Get all values from the terms dictionary
+  const values = Object.values(terms).flat();
+  // Call the display function with all values
+  display(values);
+ }
+});
+
+// Add an event listener for the input event
+inputField.addEventListener("input", () => {
+ // If the input field is empty
+ if (!inputField.value) {
+  // Get all values from the terms dictionary
+  const values = Object.values(terms).flat();
+  // Call the display function with all values
+  display(values);
+ }
+});
