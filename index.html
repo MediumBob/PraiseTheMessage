@@ -12,14 +12,22 @@
     <script src="https://kit.fontawesome.com/78fbec507a.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="primary-container">
-        <div class="grid">
+    <div id="primary-container">
+        <div id="grid">
             <div class="header">
-                <h1>Praise the messagE!</h1>
-                <p>Enter your desired term to find its corresponding category</p>
+                <h1 id="title">Praise the messagE!</h1>
+                <p id="description">Enter your desired term to find its corresponding category</p>
+                <div id="toggle-container">
+                    <p class="toggle-text start-with">Search for terms that <br><u>start with</u> input</p>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle" checked>
+                        <span class="slider round"></span>
+                    </label>
+                    <p class="toggle-text contains">Search for terms that <br><u>contain</u> input</p>
+                    </div>
             </div>
 
-            <div class="search-bar">
+            <div id="search-bar">
                 <div class="search-box">
                     <div class="row">
                         <input type="text" name="" id="input-box" placeholder="****" autocomplete="off">
@@ -33,11 +41,14 @@
             </div>
 
             <div class="footer">
+                <p id="bug-report"><a href="https://github.com/MediumBob/PraiseTheMessage/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=">Report a bug <i class="fa-solid fa-bug" style="color: white; margin-left: 5px;"></i></a></p>
                 <p>Made with <i class="fa-solid fa-heart" style="color: red;"></i> by MediumBob</p>
                 <a href="https://github.com/MediumBob/PraiseTheMessage"><i class="fa-brands fa-github fa-xl" style="color: white;"></i></a>
+                <p id="feature-request"><a href="https://github.com/MediumBob/PraiseTheMessage/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=">Request a feature <i class="fa-solid fa-screwdriver-wrench" style="color: white; margin-left: 5px;"></i></a></p>
             </div>
         </div>
     </div>
-    <script src="./scripts/autocomplete.js"></script>
+    <script src="./scripts/search-bar.js"></script>
+    <script src="./scripts/get-terms.js"></script>
 </body>
 </html>

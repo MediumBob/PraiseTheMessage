@@ -17,6 +17,17 @@
     font-display: swap;
 }
 
+@keyframes highlightFade {
+    0% {
+        background-color: yellow;
+        opacity: 1;
+    }
+
+    100% {
+        background-color: inherit;
+    }
+}
+
 body{
     background-image: url('../images/erdtree.png');
     background-repeat: no-repeat;
@@ -31,7 +42,7 @@ body{
 }
 
   /* dark region in front of the background image */
-  .primary-container {
+  #primary-container {
     background-color: rgba( 0, 0, 0, 0.60); 
     margin: 0%;
     padding: 1%;
@@ -39,7 +50,7 @@ body{
   
   }
 
-.grid{
+#grid{
     display: grid;
     gap: 5px 5px;
     grid-template-areas: 
@@ -62,9 +73,18 @@ body{
     text-decoration-color: rgb(208, 171, 109);
     text-decoration-thickness: 3px;
 }
+#title{
+    font-size: 80px;
+}
+#description{
+    font-size: 35px;
+}
 
+.toggle-text{
+    font-size: 20px;
+}
 
-.search-bar{
+#search-bar{
     grid-area: search-bar;
 }
 .search-box{
@@ -72,6 +92,7 @@ body{
     width: 600px;
     background: #222222;
     margin: 20px auto 20px;
+    margin-top: 0px;
     border: 2px solid;
     border-radius: 5px;
     border-color: rgb(208, 171, 109);
@@ -104,6 +125,14 @@ button .fa-solid{
     cursor: pointer;
 }
 
+
+/* the list of autocomplete selections */
+.result-box{
+    color: #fff;
+    max-height: 300px;
+    overflow-y: scroll;
+    text-align: left;
+}
 .result-box ul{
     border-top: 1px solid #fff;
     padding: 15px 10px;
@@ -115,17 +144,11 @@ button .fa-solid{
     padding: 15px 10px;
     cursor: pointer;
 }
-.result-box ul li:hover{
+.result-box ul li.hovered{
     background: #4c4c4c;
 }
 
-.result-box{
-    color: #fff;
-    max-height: 300px;
-    overflow-y: scroll;
-    text-align: left;
-
-}
+/* the box containing the answer (only appears after the first search) */
 .res-box{
     position: relative;
     font-size: 2em;
@@ -137,6 +160,7 @@ button .fa-solid{
     padding: 8px;
 }
 
+/* style for text in the terms-lists */
 .terms{
     display: flex;
     flex-direction: column;
@@ -150,7 +174,6 @@ button .fa-solid{
     border-color: rgb(208, 171, 109);
     border-radius: 15px;
 }
-
 .terms h2{
     text-decoration: underline;
     text-decoration-color: rgb(208, 171, 109);
@@ -161,6 +184,7 @@ button .fa-solid{
     align-items: center;
 }
 
+/* grid positions for the terms-lists, loaded from terms.json stored on the remote repo */
 .enemies { grid-area: enemies; }
 .people { grid-area: people; }
 .things { grid-area: things; }
@@ -175,7 +199,7 @@ button .fa-solid{
 .phrases { grid-area: phrases; }
 .conjunctions { grid-area: conjunctions; }
 
-
+/* website footer - bug reports, feature requests, github link */
 .footer {
     grid-area: footer; 
     display: flex;
@@ -189,8 +213,114 @@ button .fa-solid{
     background-color: #222222;
     width: 100%;
     height: 4vh;
+    flex-wrap: nowrap;
 }
 
-.highlight {
-    background-color: yellow;
+#bug-report{
+    margin-right: 10%;
+}
+#feature-request{
+    margin-left: 10%;
+}
+
+/* fading highlight to indicate where the answer is */
+.highlightedDiv {
+    animation: highlightFade 1s forwards;
+    border-color: rgb(255, 0, 0);
  }
+
+ /* the matching term the user searched for */
+ .highlightedTerm {
+    color: rgb(255, 255, 255);
+    background-color: rgba(255, 0, 0, 0.5);
+ }
+
+ /* for mouseover and up/down arrow keys on the autocomplete menu */
+ .hover{
+    background: #4c4c4c;
+ }
+
+/* for the container above the serach bar with the behavior toggle and text describing the behavior changes */
+#toggle-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 2%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(208, 171, 109);
+    border-radius: 15px;
+    padding: 1px;
+}
+
+ /* the switch - the box around the slider */
+ .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* the slider for the behavior toggle */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #222222;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: rgb(208, 171, 109);
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px rgb(208, 171, 109);
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* rounded slider */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  } 
+
+.highlighted-toggle-text{
+    background-color: rgba(255,  255,  0,  0.2);
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
