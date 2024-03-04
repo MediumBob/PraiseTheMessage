@@ -35,7 +35,9 @@ async function getTerms(path) {
     for (let key in terms) {
         // Create a new div element with the class 'terms' and the key as its class name
         let div = document.createElement('div');
-        div.className = 'terms ' + key.toLowerCase();
+        div.className = 'terms ' + key.toLowerCase().replace(/\s+/g, ''); // remove whitespace from the key
+        // Set the grid-area property to match the grid area names defined in CSS
+       // div.style.gridArea = key.toLowerCase().replace(/\s+/g, ''); // remove whitespace from the key;
  
         // Create an h2 element with the key as its text content
         let h2 = document.createElement('h2');

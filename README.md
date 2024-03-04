@@ -4,7 +4,7 @@
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/mediumbob/PraiseTheMessage?label=%20&color=green)
 
 # PraiseTheMessage
-This tool is designed to help the user quickly locate message terms within the Elden Ring message library, which is often arbitrary and obtuse (why is pickle a concept?).
+This tool is designed to help users quickly locate message terms within the Elden Ring message library.
 
 [demo]
 
@@ -13,16 +13,8 @@ Navigate to the [following link](https://praisethemessage.netlify.app/) and ente
 
 Alternatively, you can use your browsers search feature (ctrl+F) and find it that way. 
 
+# Planned Updates
+I intend to include a page and relevant serach bar for each of the major souls-like games (that I am aware of) which have a similar message system (Dark Souls 1-3, Bloodborne, Sekiro, Lies of P). If you notice any missing games you would like to see included, be sure to [make a feature request!](https://github.com/MediumBob/PraiseTheMessage/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=)
+
 # Additional Notes
-Please note that although this code is my own, the idea came from a [Reddit post](https://www.reddit.com/r/Eldenring/comments/thsfju/i_created_a_web_app_to_easily_find_a_message_term/) by user "dpahoe" who shared their web app ([tryfinger.com](https://www.tryfinger.com/)) that served the same purpose but is currently down for whatever reason (at least as of Dec. 2023). I found their app so useful that I made [PraiseTheMessage](https://praisethemessage.netlify.app/) in response to its absence.
-
-# Alternatives
-If this site ever goes down, you can try the following alternatives:
-1. Multiple blog posts like [this one from Steamlists](https://steamlists.com/elden-ring-list-of-messages-words-phrases/) list all of the message terms - simply use your browsers search feature (ctrl+F) to find the word you're looking for, and scroll up for its category.
-2. Fextralife's [Elden Ring Wiki](https://eldenring.wiki.fextralife.com/Messages) has a similar page because of course they do.
-3. [Tryfinger.com](https://www.tryfinger.com/) might be back online! Give it a shot!
-
-I expect there are other similar resources that are not listed here.
-
-Look carefully\
-In short, try reserach.
+Please note that although this code is my own, the idea came from a [Reddit post](https://www.reddit.com/r/Eldenring/comments/thsfju/i_created_a_web_app_to_easily_find_a_message_term/) by user "dpahoe" who shared their web app ([tryfinger.com](https://www.tryfinger.com/)) that served the same purpose but is currently down for whatever reason. I found their app so useful that I made [PraiseTheMessage](https://praisethemessage.netlify.app/) in response to its absence.

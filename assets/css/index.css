@@ -47,6 +47,7 @@ body{
     margin: 0%;
     padding: 1%;
     gap: 5px;
+    padding-top: 4vh; /* so the top-nav-bar doesnt cover text */
   
   }
 
@@ -54,11 +55,28 @@ body{
     display: grid;
     gap: 5px 5px;
     grid-template-areas: 
+    "top-nav-bar top-nav-bar top-nav-bar top-nav-bar top-nav-bar top-nav-bar top-nav-bar top-nav-bar top-nav-bar top-nav-bar top-nav-bar top-nav-bar top-nav-bar"
     "header header header header header header header header header header header header header"
     "search-bar search-bar search-bar search-bar search-bar search-bar search-bar search-bar search-bar search-bar search-bar search-bar search-bar"
-    "enemies people things tactics actions situations places directions bodyparts affinities concepts phrases conjunctions"
+    "enemies people things battletactics actions situations places directions bodyparts affinities concepts phrases conjunctions"
     "footer footer footer footer footer footer footer footer footer footer footer footer footer";
     }
+
+/* website header - nav bar to switch among the various pages */
+#top-nav-bar{
+    grid-area: top-nav-bar; 
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    top: 0;
+    left: 0;
+    background-color: #222222;
+    width: 100%;
+    height: 4vh;
+    flex-wrap: nowrap;
+}
 
 .header{
     grid-area: header;
@@ -188,7 +206,7 @@ button .fa-solid{
 .enemies { grid-area: enemies; }
 .people { grid-area: people; }
 .things { grid-area: things; }
-.tactics { grid-area: tactics; }
+.battletactics { grid-area: battletactics; }
 .actions { grid-area: actions; }
 .situations { grid-area: situations; }
 .places { grid-area: places; }
@@ -214,6 +232,7 @@ button .fa-solid{
     width: 100%;
     height: 4vh;
     flex-wrap: nowrap;
+    z-index: 1;
 }
 
 #bug-report{
