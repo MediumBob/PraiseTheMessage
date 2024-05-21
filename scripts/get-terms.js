@@ -1,5 +1,18 @@
-let terms = {}; // this will hold the JSON data
-const termsURL = 'https://raw.githubusercontent.com/MediumBob/PraiseTheMessage/main/assets/json/terms.json'; // URL for json data
+// let terms = {}; // this will hold the JSON data
+// const termsURL = 'https://raw.githubusercontent.com/MediumBob/PraiseTheMessage/main/assets/json/terms.json'; // URL for json data
+
+// // fetch terms.json from the remote repository
+// getTerms(termsURL)
+//   .then(data => {
+//        // load data from terms.json into a javascript variable
+//        terms = data;
+//        // add lists of the terms under the search bar
+//        populateHTML(terms);
+//   })
+//   .catch(error => {
+//        console.error('Error:', error);
+//   });
+
 
 /**
  * 
@@ -14,19 +27,10 @@ async function getTerms(path) {
     return await response.json();
  }
 
- // fetch terms.json from the remote repository
- getTerms(termsURL)
-   .then(data => {
-        // load data from terms.json into a javascript variable
-        terms = data;
-        // add lists of the terms under the search bar
-        populateHTML(terms);
-   })
-   .catch(error => {
-        console.error('Error:', error);
-   });
-
-   
+/**
+ * 
+ * @param {*} terms 
+ */
   function populateHTML(terms) {
     // Get the container where the divs will be added
     const container = document.querySelector('#grid');
