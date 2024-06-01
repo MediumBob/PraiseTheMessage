@@ -19,9 +19,9 @@
     }
 }
 
-@keyframes backgroundTransition{
-    from { opacity: 1; }
-    to { opacity: 0; }
+@keyframes fadeTransition{
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 *{
@@ -194,6 +194,7 @@ select{
 
 .terms {
     flex-direction: column;
+    animation: fadeTransition 1.5s ease-in-out;
 }
 .terms-list{
     height: 35vh;
