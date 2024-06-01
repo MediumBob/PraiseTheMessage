@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PraiseTheMessage</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon-16x16.png">
+    <link rel="manifest" href="../assets/images/site.webmanifest">
+    <link rel="stylesheet" href="../assets/css/index.css">
+    <script src="https://kit.fontawesome.com/78fbec507a.js" crossorigin="anonymous"></script>
+</head>
+<body class="flex">
+    <div class="backgrounds-container">
+        <img class="showing background" src="../assets/images/eldenring-background.png">
+        <img class="background" src="../assets/images/darksouls1-background.png">
+        <img class="background" src="../assets/images/darksouls2-background.png">
+        <img class="background" src="../assets/images/darksouls3-background.png">
+        <img class="background" src="../assets/images/bloodborne-background.png">
+    </div>
+
+    <header>
+        <h1 class="title">Praise the messagE!</h1>
+        <p class="description">
+            This tool is designed to help players quickly locate message terms within the menus of FromSoftware games - 
+            pick a game and start searching!
+        </p>
+    </header>
+    <main>
+        <div class="search-bar-container flex">
+            <div class="search-options bordered search-bar-component sb-text flex">
+                <label for="game">Select a game:</label>
+                <select name="game" id="game-dropdown" class="dropdown" onchange="SwapGame(value);">
+                    <option value="eldenring">Elden Ring</option>
+                    <option value="darksouls1">Dark Souls 1</option>
+                    <option value="darksouls2">Dark Souls 2 (Coming soon...)</option>
+                    <option value="darksouls3">Dark Souls 3 (Coming soon...)</option>
+                    <option value="bloodborne">Bloodborne (Coming soon...)</option>
+                </select>
+                <div class="divider"></div>
+                <label for="searchbehavior">Search for terms that:</label>
+                <select name="searchbehavior" id="search-behavior-dropdown" class="dropdown" onchange="BehaviorToggle(value);">
+                    <option value="matches">Match input</option>
+                    <option value="contains">Contain input</option>
+                </select>
+            </div>
+            <div class="search-bar search-bar-component bordered flex">
+                <input type="text" name="term" id="input-box" class="input-field sb-text" placeholder="Enter your desired term to find its corresponding category" autocomplete="off">
+                <button class="input-field"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            <div class="autocomplete-box search-bar-component sb-text">  
+            </div>
+            <div class="result-box">
+            </div>
+        </div>
+        <div class="terms-container flex">
+        </div>
+    </main>
+    <footer class="flex">
+        <a href="https://github.com/MediumBob/PraiseTheMessage/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=" title="Github - Bug Report">Report a bug <i class="fa-solid fa-bug footer-icon"></i></a>
+        <p>Made with <i class="fa-solid fa-heart" style="color: red;"></i> by MediumBob<a href="https://github.com/MediumBob/PraiseTheMessage" title="Github"><i class="fa-brands fa-github fa-xl footer-icon"></i></a></p>
+        <a href="https://github.com/MediumBob/PraiseTheMessage/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=" title="Github - Feature Request">Request a feature <i class="fa-solid fa-screwdriver-wrench footer-icon"></i></a>
+    </footer>
+
+    <script src="../scripts/search-bar.js"></script>
+</body>
+</html>
