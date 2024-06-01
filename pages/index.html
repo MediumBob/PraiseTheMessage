@@ -8,75 +8,61 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon-16x16.png">
     <link rel="manifest" href="../assets/images/site.webmanifest">
-    <link rel="stylesheet" href="../assets/css/common.css">
     <link rel="stylesheet" href="../assets/css/index.css">
     <script src="https://kit.fontawesome.com/78fbec507a.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="flex">
     <div class="backgrounds-container">
-        <img class="showing background" src="../assets/images/eldenring.jpg">
-        <img class="background" src="../assets/images/ds3.jpg">
-        <img class="background" src="../assets/images/bloodborne.jpg">
-        <img class="background" src="../assets/images/ds1.jpg">
-        <img class="background" src="../assets/images/ds2.jpg">
-        <img class="background" src="../assets/images/demonssouls.jpg">
+        <img class="showing background" src="../assets/images/eldenring-background.png">
+        <img class="background" src="../assets/images/darksouls1-background.png">
+        <img class="background" src="../assets/images/darksouls2-background.png">
+        <img class="background" src="../assets/images/darksouls3-background.png">
+        <img class="background" src="../assets/images/bloodborne-background.png">
     </div>
 
-
-    <div id="content-window">
-        <nav id="top-nav-bar">
-            <ul>
-                <li id="home" class="fullwidth"><a href="index.html">Praise the messagE!</a></li>
-                <li><a href="demonssouls.html">DEMON'S SOULS</a></li>
-                <li><a href="darksouls1.html">DARK SOULS 1</a></li>
-                <li><a href="darksouls2.html">DARK SOULS 2</a></li>
-                <li><a href="darksouls3.html">DARK SOULS 3</a></li>
-                <li><a href="bloodborne.html">BLOODBORNE</a></li>
-                <li><a href="eldenring.html">ELDEN RING</a></li>
-            </ul>
-        </nav>
-
-        <div id="grid">
-            <div id="description">
-                <h1>This tool is designed to help users locate specific words in the messaging systems of Soulsborne games - Pick a game to start seraching!</h1>
+    <header>
+        <h1 class="title">Praise the messagE!</h1>
+        <p class="description">
+            This tool is designed to help players quickly locate message terms within the menus of FromSoftware games - 
+            pick a game and start searching!
+        </p>
+    </header>
+    <main>
+        <div class="search-bar-container flex">
+            <div class="search-options bordered search-bar-component sb-text flex">
+                <label for="game">Select a game:</label>
+                <select name="game" id="game-dropdown" class="dropdown" onchange="SwapGame(value);">
+                    <option value="eldenring">Elden Ring</option>
+                    <option value="darksouls1">Dark Souls 1</option>
+                    <option value="darksouls2">Dark Souls 2 (Coming soon...)</option>
+                    <option value="darksouls3">Dark Souls 3 (Coming soon...)</option>
+                    <option value="bloodborne">Bloodborne (Coming soon...)</option>
+                </select>
+                <div class="divider"></div>
+                <label for="searchbehavior">Search for terms that:</label>
+                <select name="searchbehavior" id="search-behavior-dropdown" class="dropdown" onchange="BehaviorToggle(value);">
+                    <option value="matches">Match input</option>
+                    <option value="contains">Contain input</option>
+                </select>
             </div>
-            <div id="ds" class="card">
-                <a class="cover-link" href="../pages/demonssouls.html"></a>
-                <h2>Demon's Souls</h2>
+            <div class="search-bar search-bar-component bordered flex">
+                <input type="text" name="term" id="input-box" class="input-field sb-text" placeholder="Enter your desired term to find its corresponding category" autocomplete="off">
+                <button class="input-field"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
-            <div id="ds1" class="card">
-                <a class="cover-link" href="../pages/darksouls1.html"></a>
-                <h2>Dark Souls 1</h2>
+            <div class="autocomplete-box search-bar-component sb-text">  
             </div>
-            <div id="ds2" class="card">
-                <a class="cover-link" href="../pages/darksouls2.html"></a>
-                <h2>Dark Souls 2</h2>
-            </div>
-            <div id="ds3" class="card">
-                <a class="cover-link" href="../pages/darksouls3.html"></a>
-                <h2>Dark Souls 3</h2>
-            </div>
-            <div id="bb" class="card">
-                <a class="cover-link" href="../pages/bloodborne.html"></a>
-                <h2>Bloodborne</h2>
-            </div>
-            <div id="er" class="card">
-                <a class="cover-link" href="../pages/eldenring.html"></a>
-                <h2>Elden Ring</h2>
+            <div class="result-box">
             </div>
         </div>
-        <div>
-            <p>asl;dkfj</p>
+        <div class="terms-container flex">
         </div>
-    </div>
-    <div class="footer">
-        <p id="bug-report"><a href="https://github.com/MediumBob/PraiseTheMessage/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=">Report a bug <i class="fa-solid fa-bug" style="margin-left: 5px;"></i></a></p>
-        <p>Made with <i class="fa-solid fa-heart" style="color: red;"></i> by MediumBob</p>
-        <a href="https://github.com/MediumBob/PraiseTheMessage"><i class="fa-brands fa-github fa-xl footer-icon"></i></a>
-        <p id="feature-request"><a href="https://github.com/MediumBob/PraiseTheMessage/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=">Request a feature <i class="fa-solid fa-screwdriver-wrench" style="margin-left: 5px;"></i></a></p>
-    </div>
+    </main>
+    <footer class="flex">
+        <a href="https://github.com/MediumBob/PraiseTheMessage/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=" title="Github - Bug Report">Report a bug <i class="fa-solid fa-bug footer-icon"></i></a>
+        <p>Made with <i class="fa-solid fa-heart" style="color: red;"></i> by MediumBob<a href="https://github.com/MediumBob/PraiseTheMessage" title="Github"><i class="fa-brands fa-github fa-xl footer-icon"></i></a></p>
+        <a href="https://github.com/MediumBob/PraiseTheMessage/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=" title="Github - Feature Request">Request a feature <i class="fa-solid fa-screwdriver-wrench footer-icon"></i></a>
+    </footer>
 
-
-<script src="../scripts/background-transition.js"></script>
+    <script src="../scripts/search-bar.js"></script>
 </body>
 </html>

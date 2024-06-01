@@ -8,16 +8,37 @@
     font-display: swap;
 }
 
-body{
-    color: white;
+@keyframes highlightFade {
+    0% {
+        background-color: yellow;
+        opacity: 1;
+    }
+
+    100% {
+        background-color: inherit;
+    }
 }
-body:before{
+
+@keyframes backgroundTransition{
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+*{
+    box-sizing: border-box;
+}
+
+html{
+    height: 100%;
+}
+
+body::before{
     content: "";
     position: fixed;
     width: 100%;
     height: 100%;
     background-color: #000;
-    opacity: .4;
+    opacity: .2;
     z-index: -1;
 }
 
@@ -25,17 +46,15 @@ body:before{
     position: fixed;
     width: 100%;
     height: 100%;
-    z-index: -5;
+    z-index: -2;
 }
-
 .background{
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transition: opacity 2s ease-in-out;
-    background-attachment: fixed;
+    transition: opacity 1.5s ease-in-out;
 }
 
 .showing{
@@ -44,80 +63,230 @@ body:before{
     transition: none;
 }
 
-#grid{
-    position: relative;
-    display: grid;
-    justify-items: center;
+body{
+    flex-direction: column;
+    min-height: 100%;
+
+    color: white;
+    margin: 0;
+    /* font-family: 'Garamond Premier', sans-serif; */
+    font-family: 'Mantinia';
+
+    /* background-image: url('../images/eldenring-background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    border-image: linear-gradient(
+        hsla(0, 0%, 0%, 0.5),
+        hsla(0, 0%, 0%, 0.5));
+    border-image-slice: fill 1; */
+    border-image: linear-gradient(
+        hsla(0, 0%, 0%, 0.5),
+        hsla(0, 0%, 0%, 0.5));
+    border-image-slice: fill 1; 
+    }
+
+.background-transition{
+    animation: backgroundTransition 2s ease-in-out;
+    }
+
+header{
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    font-size: 1.6em;
+    line-height: 1.3rem;
+    border-bottom: 2px solid rgb(208, 171, 109);
+}
+
+header *{
+    padding: 0.1em 15%;
+    margin: 0.1em 0;
+}
+
+footer{
+    justify-content: space-around;
     align-items: center;
-    row-gap: 30px;
-
-    grid-template-areas: 
-    "description description description"
-    "eldenring darksouls1 darksouls2"
-    "darksouls3 bloodborne demonssouls";
+    background: #222;
+    margin-top: auto;
+    border-top: 2px solid rgb(208, 171, 109);
 }
 
-#description{
-    grid-area: description;
-    margin-top: 20px;
-    margin-left: 10%;
-    margin-right: 10%;
+
+.flex{
+    display: flex;
 }
 
-.cover-link {
+.bordered{
+    border: 2px solid rgb(208, 171, 109);
+}
 
-  }
 
-/* description text */
-h1{
-    font-size: 23px;
-    background-color: rgba(0, 0, 0, 0.6);
+.title{
+    text-decoration: underline;
+    text-decoration-color: rgb(208, 171, 109);
+    text-decoration-thickness: 0.05em;
+    line-height: 1em;
+}
+
+.dropdown{
+    margin: 0 0.5em;
+}
+
+select{
+    max-height: 1.6em;
+    max-width: 8em;
+}
+
+.search-bar-container{
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5em 0.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    /* border-bottom: 2px solid rgb(208, 171, 109); */
+}
+
+.search-bar-component{
+    background: #222222;
+    overflow: hidden;
+    padding: inherit;
+    width: 60%;
+    min-width: 520px;
+}
+
+.search-options{
+    text-decoration: underline;
+    border-bottom: 1px;
+    border-radius: 0.5em 0.5em 0em 0em;
+    max-height: 3.5em;
+}
+
+.search-bar{
+    background: #222222;
+    margin-top: 0px;
+    border-radius: 0em 0em 0.5em 0.5em;
+    align-items: center;
+}
+
+.sb-text{
+    font-size: 1.2em;
+}
+
+.divider{
+    border-left: 0.1em solid white;
+    margin: 0 1em;
+}
+
+.result-box{
+    border-radius: 1em;
+    padding: 0.3em;
+    margin: 0.5em 0.5em 0em 0.5em;
+    font-size: 2em;
     text-align: center;
 }
 
-.card{
-    display: flex;
-    border: 2px solid;
-    border-radius: 10px;
-    border-color: aquamarine;
-    align-items: center;
-    justify-content: center;
-    height: 200px;
-    width: 200px;
+.terms-container{
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    /* border-top: 2px solid rgb(208, 171, 109); */
+    padding-top: 0.6em;
+}
+
+.terms {
+    flex-direction: column;
+}
+.terms-list{
+    height: 35vh;
+    overflow-y: auto;
+    margin: 0em 0.5em 1.5em 0.5em;
+    border-radius: 1em;
+    -ms-overflow-style: none; /* hide scrollbars for IE and Edge */
+    scrollbar-width: none; /* hide scrollbars for Firefox */
+}
+
+.terms-list::-webkit-scrollbar {
+    display: none; /* hide scrollbars for Chrome, Safari, and Opera */
+}
+
+.terms-list ul,ol{
+    list-style-type: none;
+    
+}
+
+.terms h2{
+    text-align: center;
+    margin: 0;
+}
+
+.terms-text{
+    padding: 0.5em;
 }
 
 
-/* card text */
-h2{
-    opacity: 0;
+a{
+    color: white;
+}
+a:hover{
+    color: rgb(208, 171, 109);
 }
 
-#ds{
-    background-image: url("../images/dslogo.jpg");
-    background-size: 100% 100%;
+.footer-icon{
+   margin-left: 5px;
 }
 
-#ds1{
-    background-image: url("../images/ds1logo.jpg");
-    background-size: 100% 100%;
-}
-#ds2{
-    background-image: url("../images/ds2logo.png");
-    background-size: 100% 100%;
-}
-#ds3{
-    background-image: url("../images/ds3logo.jpg");
-    background-size: 100% 100%;
-}
-#bb{
-    background-image: url("../images/bblogo.jpg");
-    background-size: 100% 100%;
-}
-#er{
-    background-image: url("../images/erlogo.jpg");
-    background-size: 100% 100%;
+.input-field{
+    border: 0;
+    outline: 0;
+    background-color: inherit;
 }
 
-#content-window{
-    margin-bottom: 25px;
+input{
+    flex: 1;
+    height: 1.7em;
+    font-size: 18px;
+    color: #fff;
 }
+
+/* magnifying glass search button */
+button{
+    font-size: 22px;
+    color: #555;
+    cursor: pointer;
+}
+
+/* the list of autocomplete selections */
+.autocomplete-box{
+    color: #fff;
+    background-color: #222222;
+    max-height: 40vh;
+    overflow-y: scroll;
+    text-align: left;
+    padding: 0;
+}
+.autocomplete-box ul{
+    border-top: 1px solid #fff;
+    padding: 0.5em 0.4em;
+}
+
+.autocomplete-box ul li{
+    list-style: none;
+    border-radius: 3px;
+    padding: 0.5em 0.4em;
+    cursor: pointer;
+}
+.autocomplete-box ul li.hovered{
+    background: #4c4c4c;
+}
+
+/* fading highlight to indicate where the answer is */
+.highlightedDiv {
+    animation: highlightFade 1s forwards;
+    border-color: rgb(255, 0, 0);
+ }
+
+ /* the matching term the user searched for */
+ .highlightedTerm {
+    color: rgb(255, 255, 255);
+    background-color: rgba(255, 0, 0, 0.5);
+ }
+

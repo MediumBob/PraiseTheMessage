@@ -1,64 +1,56 @@
-// init some global variable for later
+/* ****************** */
+// Variables
+/* ****************** */
 const INPUT_BOX = document.getElementById("input-box");                         // the serach bar's input box
-const AUTOCOMPLETE_RESULTS = document.querySelector(".result-box");             // the search bar's autocomplete box (that lists the avaialbe terms)
-const SEARCH_ICON = document.querySelector(".fa-solid.fa-magnifying-glass");    // the search bar's "serach" icon (the magnifying glass)
-const TOGGLE_BEHAVIOR = document.querySelector("#toggle");                      // the search bar's "toggle" behavior slider
-let behaviorToggle = true;                                                      // is the search bar behavior toggled?
-let activeItemIndex = -1;                                                        // which item is highlighted in the autocomplete menu?
+const AUTOCOMPLETE_RESULTS = document.querySelector(".autocomplete-box");       // the search bar's autocomplete box (that lists the avaialbe terms)
+const SEARCH_ICON = document.querySelector(".fa-solid.fa-magnifying-glass");    // the search bar's "serach" icon (the magnifying glass)let behaviorToggle = true;                                                      // is the search bar behavior toggled?
+const GAME_DROPDOWN = document.getElementById("game-dropdown");                 // the dropdown menu to select a game
+const BEHAVIOR_DROPDOWN = document.getElementById("search-behavior-dropdown");  // the dropdown menu to select the search behavior
+let RESULT_BOX = document.querySelector(".result-box")                          // the container for the result
+let behaviorToggle = false;                                                     // is the search bar behavior toggled?
+let activeItemIndex = -1;                                                       // which item is highlighted in the autocomplete menu?
 
-// run some functions immediately:
-HighlightToggleText(behaviorToggle);                                            // ensure proper serach mode is highlighted
+/* ****************** */
+// Executed code
+/* ****************** */
 
-/***** define event listeners *****/
-
-// 1. SEARCH ICON WAS CLICKED
+/* ****************** */
+// Event listeners
+/* ****************** */
+// SEARCH ICON WAS CLICKED
 SEARCH_ICON.addEventListener('click', function() {
     SelectInput(INPUT_BOX.value);
 });
 
-// 2. SCREEN WAS CLICKED (somewhere)
+// SCREEN WAS CLICKED (somewhere)
 document.addEventListener('click', (event) =>{
-    // did the click fail to do any of the following:
-    //      1. focus the input box            2. click the search icon          3. toggle the search behavior
-    if (!(event.target === INPUT_BOX) && !(event.target === SEARCH_ICON) && !(event.target === TOGGLE_BEHAVIOR)) {
-        // if the click was anywhere else other than what was mentioned above, we remove the autocomplete results
+    // leave the autocomplete menu showing if the user clicked on the input box or the dropdown menu for search behavior
+    if (!(event.target === INPUT_BOX) && !(event.target === BEHAVIOR_DROPDOWN) 
+        && !(((event.target.tagName === 'OPTION' && event.target.parentNode == GAME_DROPDOWN)))){
+        // if the click was anywhere else on the page, we remove the autocomplete results
         HideOptions(AUTOCOMPLETE_RESULTS);
     }
-});
-
-// 3. SEARCH BAR FOCUSED
-INPUT_BOX.addEventListener("focus", UpdateSearchBar);
-
-// 4. INPUT ADDED TO SEARCH BAR
-INPUT_BOX.addEventListener("input", UpdateSearchBar);
-   
-// 5. TOGGLE SEARCH BEHAVIOR
-TOGGLE_BEHAVIOR.addEventListener("change", function(event) {
-    // reset the active item
-    activeItemIndex = -1;
-    //event.stopPropagation();
-    if (this.checked){
-        behaviorToggle = true;
-    }
-    else {
-        behaviorToggle = false;
-    }
-    HighlightToggleText(behaviorToggle);
-    if (INPUT_BOX.value){
+    // update the autocomplete results when changing search behavior
+    if ((event.target.tagName === 'OPTION' && event.target.parentNode == BEHAVIOR_DROPDOWN) && INPUT_BOX){
         UpdateSearchBar();
     }
 });
 
-// 6. KEY-DOWN EVENT
-/**
- * 
- */
+// SEARCH BAR FOCUSED
+INPUT_BOX.addEventListener("focus", UpdateSearchBar);
+
+// INPUT ADDED TO SEARCH BAR
+INPUT_BOX.addEventListener("input", UpdateSearchBar);
+   
+// KEY-DOWN EVENT
 INPUT_BOX.onkeydown = function(event){
-    let listItems = document.querySelectorAll('.result-box ul li');
+    let listItems = document.querySelectorAll('.autocomplete-box ul li');
     UpdateAutocompleteHighlight(event, listItems);
 }
 
-/***** define helper functions *****/
+/* ****************** */
+// Function definitions
+/* ****************** */
 
 /** SelectInput()
  * Executes when the user runs the search bar by either clicking an autocomplete 
@@ -75,6 +67,7 @@ function SelectInput(userSelection){
     else{
         searchTerm = userSelection;
     }
+    console.log("searchTerm: " +searchTerm)
     // check which keys map to the provided value (ex: knight is listed under "enemies" and also "people"; we want to list both)
     let keys = Search(searchTerm);
     // show the answer(s) in the result box
@@ -83,13 +76,13 @@ function SelectInput(userSelection){
     INPUT_BOX.value = searchTerm;
     // hide the autocomplete box
     HideOptions(AUTOCOMPLETE_RESULTS);
-    // highlight the appropriate div
+    // highlight the appropriate category of terms
     highlightDiv(searchTerm);
     // clear the active item
     activeItemIndex = -1;
  }
 
-
+ 
  /** Search()
   * 
   * @param {*} searchTerm 
@@ -97,18 +90,29 @@ function SelectInput(userSelection){
   */
  function Search(searchTerm) {
     let keys = [];
-    // check what keys match the given value
-    for (let [key, value] of Object.entries(terms)) { //NOTE: the terms variable holds our json data, and is defined in get-terms.js
-        let found = value.some(item => item.toLowerCase() === searchTerm.toLowerCase());
+    let found;
+    for (let [key, value] of Object.entries(terms)) { //NOTE: the terms variable holds our json data
+        // behavior toggled (contains)
+        if (behaviorToggle){
+            // check what keys contain the given value
+            found = value.some(item => item.toLowerCase().includes(searchTerm.toLowerCase()));
+        }
+        // behavior not toggled (matches)
+        else{
+        // check what keys match the given value
+            found = value.some(item => item.toLowerCase() === searchTerm.toLowerCase());
+        }
         if (found) {
             keys.push(key);
         }
     }
     // if there are any matching keys, return them
-    return keys.length ? keys : null;
+    //return keys.length ? keys : null;
+    return keys
+
  }
 
-
+ 
  /** PopulateAutocompleteBox()
   * 
   * @param {*} result 
@@ -123,7 +127,7 @@ function SelectInput(userSelection){
     // update the terms listed for the search bar's autocomplete selection
     AUTOCOMPLETE_RESULTS.innerHTML = "<ul>" + content.join('') + "</ul>";
     // Select all list items in the autocomplete menu
-    const listItems = document.querySelectorAll('.result-box li');
+    const listItems = document.querySelectorAll('.autocomplete-box li');
     // Iterate over the list items
     listItems.forEach((li, index) => {
     // Add a mouseover event listener to each list item
@@ -157,32 +161,36 @@ function SelectInput(userSelection){
     });
  }
 
-
+ 
 /** ShowResult()
  * 
  * @param {*} keys 
  */
 function ShowResult(keys, value) {
-    // grab the result box (where the answer goes)
-    const resultBox = document.querySelector(".res-box");
+    let results = keys.join(', ');
     // does the term exist in any of our categories? (does the value match any keys from terms.json?)
-    if (keys){
+    if (keys != ""){
         console.log(`The corresponding keys for \"${value}\" are: \"${keys}\"`);    // debug output
         // show the answer in the result box
-        resultBox.innerHTML = keys.join(', ');
+        if (behaviorToggle){
+            RESULT_BOX.innerHTML = `"${value}" contained in: <br />${results}`
+        }
+        else{
+            RESULT_BOX.innerHTML = `"${value}" found in: <br />${results}`
+        }
+
     }
     else{
         // the provided term does not match any of our categories
         console.log(`No corresponding keys found for: ${value}`);                   // debug output
-        resultBox.innerHTML = `No matching result for "${value}"`;
+        RESULT_BOX.innerHTML = `No matching result for "${value}"`;
     }
     // draw a box around the answer
-    resultBox.style.border = "3px solid";
-    resultBox.style.borderColor = "rgb(255, 0, 0)";
-    resultBox.style.borderRadius = "15px";
+    RESULT_BOX.classList = "bordered result-box"
  }
 
 
+ 
 function UpdateAutocompleteHighlight(event, itemList){
     // if nothing is currently highlighted
     console.log(`top of updateAutocompleteHighlight activeItemIndex: ${activeItemIndex}`);
@@ -214,27 +222,37 @@ function UpdateAutocompleteHighlight(event, itemList){
     // if something is currently highlighted
     else if (activeItemIndex >= 0){
         switch(event.key){
-            // if we're on the first item, we don't update anything
             case 'ArrowUp':
                 event.preventDefault();
+                itemList[activeItemIndex].classList.remove("hovered");
+                // normal scroll up
                 if (activeItemIndex != 0){
-                    itemList[activeItemIndex].classList.remove("hovered");
                     activeItemIndex -= 1;
                     console.log(`decremented activeItemIndex to ${activeItemIndex}`)
-                    itemList[activeItemIndex].classList.add("hovered");
-                    UpdateAutocompleteScroll(event, itemList);
                 }
+                // if we're on the first item, we wrap to the bottom
+                else{
+                    activeItemIndex = itemList.length - 1;
+                    console.log(`changed activeItemIndex to ${activeItemIndex}`)
+                }
+                itemList[activeItemIndex].classList.add("hovered");
+                UpdateAutocompleteScroll(event, itemList);
                 break;
             case 'ArrowDown':
                 event.preventDefault();
-                // if we're on the last item, we don't update anything
+                itemList[activeItemIndex].classList.remove("hovered");
+                // normal scroll down
                 if (activeItemIndex != (itemList.length - 1)){
-                    itemList[activeItemIndex].classList.remove("hovered");
                     activeItemIndex += 1;
                     console.log(`incremented activeItemIndex to ${activeItemIndex}`)
-                    itemList[activeItemIndex].classList.add("hovered");
-                    UpdateAutocompleteScroll(event, itemList);
                 }
+                // if we're on the last item, we go back to the top
+                else{
+                    activeItemIndex = 0;
+                    console.log(`changed activeItemIndex to ${activeItemIndex}`)
+                }
+                itemList[activeItemIndex].classList.add("hovered");
+                UpdateAutocompleteScroll(event, itemList);
                 break;
             case 'Enter':
                 console.log("enter pressed");
@@ -250,15 +268,7 @@ function UpdateAutocompleteScroll(event, itemList){
     itemList[activeItemIndex].scrollIntoView({
         behavior: 'smooth',
         block: 'nearest',
-        //inline: 'start'
     });
-    // const scrollAmount = 50;
-    // if (event.key === 'ArrowUp'){
-    //     AUTOCOMPLETE_RESULTS.scrollTop -= scrollAmount;
-    // }
-    // else if (event.key === 'ArrowDown'){
-    //    AUTOCOMPLETE_RESULTS.scrollTop += scrollAmount;
-    // }
 }
 
 
@@ -311,20 +321,8 @@ function HideOptions(availableTerms){
  * @returns 
  */
 function highlightDiv(result) {
-    // Check if the result is a valid string
-    if (typeof result !== 'string') {
-        console.log('Invalid result:', result);
-        return;
-    }
-  
-    // Use a valid CSS selector
-    const divs = document.querySelectorAll('.terms');
-  
-    // Check if any divs were selected
-    if (!divs.length) {
-        console.log('No divs selected');
-        return;
-    }
+    // grab all the term categories
+    const divs = document.querySelectorAll('.terms-list');
 
     // clear any curretly highlighted entries
     let highlightedDivs = document.querySelectorAll('.highlightedDiv');
@@ -341,54 +339,223 @@ function highlightDiv(result) {
     divs.forEach(div => {
         // Force a reflow to ensure the highlight animation plays. This is necessary because of the way CSS animations work (they only trigger when they detect a change in state). This line accesses an arbitrary porperty (namely, offsetHeight) that requires layout information, forcing the browser to recalculate the layout of the element and enabling the animation to play even if the element is already in the target state. I am aware that this solution sucks.
         void div.offsetHeight;
-        // if the category contains the desired term
-        const terms = div.textContent.toLowerCase().split('\n').filter(term => term.trim() !== '');
-        const matchingTerm = terms.find(term => term === result.toLowerCase());
-        if (matchingTerm) {
-            // If the category contains the exact term, trigger the highlight animation over the entire category
-            div.classList.add('highlightedDiv');
-        }
-        //OLD IMPLEMENTATION
-        // if (div.textContent.toLowerCase().includes(result.toLowerCase())) {
-        //     // trigger the highlight animation over the entire category
-        //     div.classList.add('highlightedDiv');
-        // }
 
-        // double check that the category div has a <ul> child element
-        const ulElement = div.querySelector('ul');
-        if(ulElement){
-            // for every term in the highlighted category
-            const liElements = Array.from(ulElement.getElementsByTagName('li'));
-            liElements.forEach(li => {
+        // grab all the terms in the current category
+        const liElements = Array.from(div.querySelector('ul').getElementsByTagName('li'));
+
+        // for every term in the highlighted category
+        liElements.forEach(li => {
+            //if behavior is toggled (contains)
+            if (behaviorToggle){
+                if (li.textContent.toLowerCase().includes(result.toLowerCase())){
+                    // highlight the div
+                    div.classList.add('highlightedDiv');
+                    // highlight the term
+                    li.classList.add('highlightedTerm');
+                    // scroll the viewport
+                    li.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                    });
+                }
+            }
+            // if behavior is not toggled (matches)
+            else{
                 // if it matches the desired term
                 if (li.textContent.toLowerCase() === result.toLowerCase()){
+                    // highlight the div
+                    div.classList.add('highlightedDiv');
                     // highlight the term
-                    li.classList.add('highlightedTerm')
+                    li.classList.add('highlightedTerm');
+                    // scroll the viewport
+                    li.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                    });
                 }
-            });
-        }
+            }
+        });
+
     });
     //Highlight the result box
-    const RESULT_BOX = document.querySelector(".res-box");
-    void RESULT_BOX.offsetHeight;
+    const RESULT_BOX = document.querySelector(".result-box");
+    // void RESULT_BOX.offsetHeight;
     RESULT_BOX.classList.add('highlightedDiv');
   }
 
-  
-/**
- * 
- * @param {*} behaviorToggle 
+
+
+
+
+
+
+
+
+
+
+// Split this js into multiple files, this is entirely too long
+
+
+
+
+
+
+/* ****************** */
+// Variables
+/* ****************** */
+const DROPDOWN = document.getElementById('game-dropdown');
+let selectedGame = DROPDOWN.value;
+const TERMSCONTAINER = document.querySelector(".terms-container");
+let terms = {}
+let images = document.querySelectorAll(".background");
+
+let imageIndex = 0;
+
+/* ****************** */
+// Executed code
+/* ****************** */
+
+SwapGame(selectedGame);
+
+/* ****************** */
+// Function definitions
+/* ****************** */
+
+/** GetTerms
+ *  Fetches the relevant terms from the remote repository
+ * @param {string} path - URL to the desired JSON data in the remote repository
+ * @returns the requested JSON data
  */
-  function HighlightToggleText(behaviorToggle){
-    const ON = document.querySelector(".contains");
-    const OFF = document.querySelector(".start-with");
-    if (behaviorToggle){
-        ON.classList.add('highlighted-toggle-text');
-        OFF.classList.remove('highlighted-toggle-text');
+async function GetTerms(path) {
+    const response = await fetch(path);
+    if (!response.ok) {
+        if(response.status === 404){
+            console.log(response.json)
+        }
+        throw new Error(`HTTP error fetching JSON data - status: ${response.status}`);
     }
-    else {
-        OFF.classList.add('highlighted-toggle-text');
-        ON.classList.remove('highlighted-toggle-text');
+    return await response.json();
+ }
+
+ /**
+ * Updates the page to display the appropriate terms for the selected game
+ * @param {json} terms - JSON data containing the relevant terms for the selected game
+ */
+ function PopulateHTML(terms) {
+    // Get the container where the divs will be added
+    const container = document.querySelector('.terms-container');
+ 
+    // Iterate over the keys and values in the terms object
+    for (let key in terms) {
+        // Create a new div element with the class 'terms' and the key as its class name
+        let div = document.createElement('div');
+        div.className = 'terms ' + key.toLowerCase().replace(/\s+/g, '') + ' flex'; // remove whitespace from the key
+
+        // Create a new div element with the class 'terms-list' to contain the ul
+        let termsList = document.createElement('div');
+        termsList.className = 'terms-list bordered'
+
+        // Create an h2 element with the key as its text content
+        let h2 = document.createElement('h2');
+        // h2.className = 'terms-text';
+        h2.textContent = key;
+ 
+        // Create a ul element
+        let ul = document.createElement('ul');
+        ul.className = 'terms-text';
+ 
+        // Iterate over the values
+        for (let value of terms[key]) {
+            // Create a li element with the value as its text content
+            let li = document.createElement('li');
+            li.textContent = value;
+ 
+            // Append the li element to the ul element
+            ul.appendChild(li);
+        }
+ 
+        // Append the h2 and ul elements to the div element
+        div.appendChild(h2);
+        termsList.appendChild(ul);
+        div.appendChild(termsList);
+ 
+        // Append the div element to the container
+        container.appendChild(div);
+    }
+ }
+
+ /**
+  * 
+  * @param {*} game 
+  */
+function SwapGame(game){
+    // clear current terms
+    document.querySelector('.terms-container').innerHTML = '';
+
+    // clear the search bar maybe?
+    INPUT_BOX.value = "";
+    HideOptions(AUTOCOMPLETE_RESULTS);
+
+    // clear result box
+    RESULT_BOX.innerHTML = "";
+    RESULT_BOX.classList = "";
+
+    // change background image
+    ChangeBackground(game);
+
+    // get the correct path to JSON data on the remote repo for the selected game
+    let termsURL = `https://raw.githubusercontent.com/MediumBob/PraiseTheMessage/main/assets/json/${game}-terms.json`
+    // let termsURL = `https://raw.githubusercontent.com/MediumBob/PraiseTheMessage/main/assets/json/terms.json`
+
+    // fetch terms from remote repo
+    GetTerms(termsURL)
+    .then(data => {
+        // load data from JSON into a javascript variable
+        terms = data;
+        // add lists of the terms under the search bar
+        PopulateHTML(terms);
+    })
+    .catch(error => {
+        console.error('ERROR: ', error);
+    });
+}
+
+/**
+ * Switches the search bar's autocomplete behavior
+ * @param {boolean} behavior - is the user searching for terms that start with input (behaviorToggle = false) or contain input (behaviorToggle = true)?
+ */
+function BehaviorToggle(behavior){
+    //alert(behavior)
+    if (behavior === "contains"){
+        behaviorToggle = true;
+    }
+    else{
+        behaviorToggle = false;
+    }
+}
+
+function ChangeBackground(game){
+    if (imageIndex >= images.length || !(images[imageIndex])){
+        imageIndex = 0;
+    }
+    images[imageIndex].classList.remove("showing");
+    switch (game){
+        case 'eldenring':
+            imageIndex = 0;
+            break;
+        case 'darksouls1':
+            imageIndex = 1;
+            break;
+        case 'darksouls2':
+            imageIndex = 2;
+            break;
+        case 'darksouls3':
+            imageIndex = 3;
+            break;
+        case 'bloodborne':
+            imageIndex = 4;
+            break;
     }
 
-  }
+    images[imageIndex].classList.add("showing");
+}
