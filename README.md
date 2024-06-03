@@ -6,7 +6,7 @@
 # PraiseTheMessage
 This tool is designed to help users quickly locate message terms within the message menus of FromSoftware games.
 
-![Demo](https://github.com/MediumBob/PraiseTheMessage/tree/main/assets/images/PTM_Demo.gif)
+![Demo](https://github.com/MediumBob/PraiseTheMessage/blob/main/assets/images/PTM_Demo.gif)
 
 
 # How To Use This Tool
