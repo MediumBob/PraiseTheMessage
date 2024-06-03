@@ -111,6 +111,7 @@ footer{
     background: #222;
     margin-top: auto;
     border-top: 2px solid rgb(208, 171, 109);
+    max-height: 3em;
 }
 
 /* ***************** */
