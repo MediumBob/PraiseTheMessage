@@ -419,7 +419,7 @@ async function GetTerms(path) {
  function PopulateHTML(terms) {
     // check every category in our JSON data
     for (let key in terms) {
-        // make a container for the terms in each category new
+        // make a container for the terms in each category
         let div = document.createElement('div');
         div.className = 'terms ' + key.toLowerCase().replace(/\s+/g, '') + ' flex'; // remove whitespace from the key
         // make a container for the <ul> element that lists the terms
