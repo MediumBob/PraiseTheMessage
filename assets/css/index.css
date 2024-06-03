@@ -1,3 +1,6 @@
+/* ***************** */
+/* Fonts             */
+/* ***************** */
 @font-face {
     font-family: 'Mantinia';
     src: url('../font/Mantinia.ttf') format('truetype'),
@@ -8,6 +11,9 @@
     font-display: swap;
 }
 
+/* ***************** */
+/* Animations        */
+/* ***************** */
 @keyframes highlightFade {
     0% {
         background-color: yellow;
@@ -24,6 +30,9 @@
     to { opacity: 1; }
 }
 
+/* ***************** */
+/* Tags              */
+/* ***************** */
 *{
     box-sizing: border-box;
 }
@@ -32,6 +41,7 @@ html{
     height: 100%;
 }
 
+/* Pseudo-element included here for smooth background transitions */
 body::before{
     content: "";
     position: fixed;
@@ -42,52 +52,17 @@ body::before{
     z-index: -1;
 }
 
-.backgrounds-container{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-}
-.background{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-}
-
-.showing{
-    opacity: 1;
-    z-index: -1;
-    transition: none;
-}
-
 body{
     flex-direction: column;
     min-height: 100%;
 
     color: white;
     margin: 0;
-    /* font-family: 'Garamond Premier', sans-serif; */
     font-family: 'Mantinia';
-
-    /* background-image: url('../images/eldenring-background.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    border-image: linear-gradient(
-        hsla(0, 0%, 0%, 0.5),
-        hsla(0, 0%, 0%, 0.5));
-    border-image-slice: fill 1; */
     border-image: linear-gradient(
         hsla(0, 0%, 0%, 0.5),
         hsla(0, 0%, 0%, 0.5));
     border-image-slice: fill 1; 
-    }
-
-.background-transition{
-    animation: backgroundTransition 2s ease-in-out;
     }
 
 header{
@@ -103,6 +78,33 @@ header *{
     margin: 0.1em 0;
 }
 
+select{
+    max-height: 1.6em;
+    max-width: 8em;
+}
+
+a{
+    color: white;
+}
+
+a:hover{
+    color: rgb(208, 171, 109);
+}
+
+input{
+    flex: 1;
+    height: 1.7em;
+    font-size: 18px;
+    color: #fff;
+}
+
+/* magnifying glass search button */
+button{
+    font-size: 22px;
+    color: #555;
+    cursor: pointer;
+}
+
 footer{
     justify-content: space-around;
     align-items: center;
@@ -111,15 +113,41 @@ footer{
     border-top: 2px solid rgb(208, 171, 109);
 }
 
+/* ***************** */
+/* Classes           */
+/* ***************** */
+
+.background-common{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.backgrounds-container{
+    z-index: -2;
+}
+
+.background{
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.showing{
+    opacity: 1;
+    z-index: -1;
+    transition: none;
+}
 
 .flex{
     display: flex;
+    flex: 1;
+    min-width: fit-content;
 }
 
 .bordered{
     border: 2px solid rgb(208, 171, 109);
 }
-
 
 .title{
     text-decoration: underline;
@@ -132,18 +160,12 @@ footer{
     margin: 0 0.5em;
 }
 
-select{
-    max-height: 1.6em;
-    max-width: 8em;
-}
-
 .search-bar-container{
     flex-direction: column;
     align-items: center;
     padding: 0.5em 0.5em;
     margin-top: 1em;
     margin-bottom: 1em;
-    /* border-bottom: 2px solid rgb(208, 171, 109); */
 }
 
 .search-bar-component{
@@ -151,14 +173,14 @@ select{
     overflow: hidden;
     padding: inherit;
     width: 60%;
-    min-width: 520px;
+    min-width: 426px;
 }
 
 .search-options{
     text-decoration: underline;
     border-bottom: 1px;
     border-radius: 0.5em 0.5em 0em 0em;
-    max-height: 3.5em;
+    max-height: fit-content;
 }
 
 .search-bar{
@@ -166,10 +188,6 @@ select{
     margin-top: 0px;
     border-radius: 0em 0em 0.5em 0.5em;
     align-items: center;
-}
-
-.sb-text{
-    font-size: 1.2em;
 }
 
 .divider{
@@ -188,7 +206,6 @@ select{
 .terms-container{
     flex-wrap: wrap;
     justify-content: space-evenly;
-    /* border-top: 2px solid rgb(208, 171, 109); */
     padding-top: 0.6em;
 }
 
@@ -211,7 +228,6 @@ select{
 
 .terms-list ul,ol{
     list-style-type: none;
-    
 }
 
 .terms h2{
@@ -223,14 +239,6 @@ select{
     padding: 0.5em;
 }
 
-
-a{
-    color: white;
-}
-a:hover{
-    color: rgb(208, 171, 109);
-}
-
 .footer-icon{
    margin-left: 5px;
 }
@@ -239,20 +247,6 @@ a:hover{
     border: 0;
     outline: 0;
     background-color: inherit;
-}
-
-input{
-    flex: 1;
-    height: 1.7em;
-    font-size: 18px;
-    color: #fff;
-}
-
-/* magnifying glass search button */
-button{
-    font-size: 22px;
-    color: #555;
-    cursor: pointer;
 }
 
 /* the list of autocomplete selections */
@@ -290,4 +284,3 @@ button{
     color: rgb(255, 255, 255);
     background-color: rgba(255, 0, 0, 0.5);
  }
-
