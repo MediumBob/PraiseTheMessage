@@ -505,6 +505,10 @@ function ChangeBackground(game){
     if (imageIndex >= images.length || !(images[imageIndex])){
         imageIndex = 0;
     }
+    // let prevIndex = imageIndex;
+    // // start to transition the background image
+    // images[prevIndex].classList.add("switching");
+
     // stop showing the current background image
     images[imageIndex].classList.remove("showing");
     // determine which background image to show

@@ -19,9 +19,18 @@ The page should then highlight and list the corresponding categories for the pro
 Alternatively, you can use your browsers search feature (ctrl+F) and find it that way. 
 
 # Planned Updates
-I intend to include functionality for each of the major souls-like games which have a similar message system (Dark Souls 1-3, Bloodborne, etc). If you notice any missing games you would like to see included, be sure to [make a feature request!](https://github.com/MediumBob/PraiseTheMessage/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=)
+I intend to add functionality for every game that features a similar message system (Dark Souls 1-3, Bloodborne, etc). If you notice any missing games that you would like to see included, be sure to [make a feature request!](https://github.com/MediumBob/PraiseTheMessage/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=)
 
-I do not currently own many of these games and am therefore unable to directly verify the accuracy of the terms/template lists that I find online, which complicates the completion of these updates. I will continue to update this tool once I am able to verify that my list of terms is accurate and comprehensive.
+I do not currently own many of these games and am therefore unable to directly verify the accuracy of the terms/template lists that I find online, which complicates the completion of these updates. I will continue to update this tool once I am able to verify that my lists of terms are accurate and comprehensive. 
+
+# Contribute To The Project!
+
+If you would like to help contribute, please [make a feature request](https://github.com/MediumBob/PraiseTheMessage/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=)! Be sure to say which game you want added, and include a comprehensive list of message terms with their corresponding categories, along with screenshots (or other sources) so that I may verify its accuracy. 
+
+Any and all contributors to this project will receive proper shout-outs and credits in this README.
+
+# Contributors
+Just me so far :D
 
 # Additional Notes
 Please note that although this code is my own, the idea came from a [Reddit post](https://www.reddit.com/r/Eldenring/comments/thsfju/i_created_a_web_app_to_easily_find_a_message_term/) by user "dpahoe" who shared their web app ([tryfinger.com](https://www.tryfinger.com/)) that served a similar purpose for Elden Ring, but is currently down for whatever reason. I found their app so useful that I made [PraiseTheMessage](https://praisethemessage.netlify.app/) in response to its absence.
